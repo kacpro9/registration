@@ -1,21 +1,16 @@
 const EventModel = require("../models/EventModel.js");
 
 module.exports = {
-  index: (req, res, next) => {
-    res.json({
-      events: [
-        {
-          name: "Kacper Sterkowicz",
-          event: { key: "front-end", value: "Front End" },
-          city: { key: "warsaw", value: "Warszawa" },
-        },
-        {
-          name: "Łukasz Badocha",
-          event: { key: "back-end", value: "Back End" },
-          city: { key: "cracow", value: "Kraków" },
-        },
-      ],
-    });
+  index: async (req, res, next) => {
+    try {
+      const result = await EventModel.find({});
+      res.json(result);
+    } catch (err) {
+      res.status(500).json({
+        message: "Error fetching events",
+        error: err,
+      });
+    }
   },
 
   create: async (req, res, next) => {
@@ -40,7 +35,25 @@ module.exports = {
     }
   },
 
-  delete: (req, res, next) => {
-    res.send("Delete");
+  delete: async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const event = await EventModel.findByIdAndDelete(id);
+
+      if (!event) {
+        return res.status(404).json({
+          message: "Event not found",
+        });
+      }
+      res.status(200).json({
+        id: id,
+        deleted: true,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Error deleting event",
+        error: error.message,
+      });
+    }
   },
 };
