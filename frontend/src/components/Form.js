@@ -133,12 +133,12 @@ const Form = (props) => {
           />
         </div>
         <div className="wrapper">
-          <button type="submit">Zapisz na szkolenie</button>
+          <button type="submit" className="submit">Zapisz na szkolenie</button>
         </div>
       </form>
 
       <div className="errorsWrpapper">
-        <ul className="errrors">{errors}</ul>
+        <ul className="errors">{errors}</ul>
       </div>
     </div>
   );

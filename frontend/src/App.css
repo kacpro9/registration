@@ -1,4 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #282c34;
-  color: #fff
+  background-color: #ddd;
+  margin: 5px;
+}
+
+.formContainer {
+  width: 100%;
+}
+
+.tableContainer {
+  margin-top: 50px;
+}
+
+@media (min-width: 576px) {
+  .formContainer {
+    width: 70%;
+  }
+}
+
+@media (min-width: 720px) {
+  .formContainer {
+    width: 50%;
+  }
+}
+
+@media (min-width: 960px) {
+  .formContainer {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1140px) {
+  .formContainer {
+    width: 30%;
+  }
 }

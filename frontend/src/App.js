@@ -3,6 +3,7 @@ import config from "./config";
 import { useEffect, useState } from "react";
 
 import Form from "./components/Form";
+import Table from "./components/Table";
 import "./App.css";
 
 function App() {
@@ -23,9 +24,29 @@ function App() {
       });
   };
 
+  const deleteEvent = (rowId) => {
+    if (window.confirm("Usunąć zapis na szkolenie?")) {
+      axios
+        .delete(config.api.url + "/events/delete/" + rowId)
+        .then((res) => {
+          if (res.data.deleted) {
+            getEvents();
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+
   return (
     <div className="App">
-      <Form getEvents={getEvents}/>
+      <div className="formContainer">
+        <Form getEvents={getEvents} />
+      </div>
+      <div className="tableContainer">
+        <Table events={events} deleteEvent={deleteEvent} className="table" />
+      </div>
     </div>
   );
 }
